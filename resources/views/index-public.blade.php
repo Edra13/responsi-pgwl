@@ -41,7 +41,7 @@
 
     @section('script')
     <script>
-    var map = L.map('map').setView([-8.567987, 116.096130], 14);
+    var map = L.map('map').setView([-8.587801, 116.110949], 14);
 
     // Basemap layers
     var stadiaMaps = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.{ext}', {
@@ -66,49 +66,52 @@
 
         L.control.layers(baseMaps, null, { position: 'topright' }).addTo(map);
 
-    //* GeoJSON Point */
-	var point = L.geoJson(null, {
-            pointToLayer: function (feature, latlng) {
-                // Buat ikon kustom untuk setiap marker
-                var customIcon = L.icon({
-                    iconUrl: 'storage/marker.png',
-                    iconSize: [50], // Sesuaikan ukuran ikon Anda
-                    iconAnchor: [16, 32], // Sesuaikan titik ancor ikon jika diperlukan
-                    popupAnchor: [0, -30] // Sesuaikan posisi pop up di atas ikon
-                });
+     /* GeoJSON Point */
 
-                // Tambahkan marker dengan ikon kustom ke peta
-                return L.marker(latlng, { icon: customIcon });
-            },
-            onEachFeature: function (feature, layer) {
-                var popupContent = `
-                    <div class="text-center">
-                        <h5 class="fw-bold">${feature.properties.name}</h5>
-                        ${feature.properties.description ? `${feature.properties.description}` : ''}
-                        <img src="{{ asset('storage/images/') }}/${feature.properties.image}" class="img-fluid img-thumbnail mt-2" alt="Image" style="width: 200px;">
-                        <p class="mt-2">${feature.properties.created_at}</p> <!-- Tambahkan waktu pembuatan laporan -->
-                    </div>
-                `;
+     var customIcon = L.icon({
+    iconUrl: 'storage/marker.png', // Ganti dengan path ke ikon kustom Anda
+    iconSize: [40], // Ukuran ikon [lebar, tinggi]
+    iconAnchor: [20, 40], // Titik anchor (koordinat dalam ikon) untuk menentukan lokasi ikon di peta
+    popupAnchor: [0, -40] // Titik anchor untuk menentukan lokasi popup di atas ikon
+});
 
-                // Mengganti (") menjadi (') dalam script bootstrap agar tidak error
-                // Perhatikan tanda petik
-
-                layer.on({
-                    click: function (e) {
-                        layer.bindPopup(popupContent).openPopup();
-                    },
-                    mouseover: function (e) {
-                        layer.bindTooltip(feature.properties.name);
-                    },
-                });
-            },
+var point = L.geoJson(null, {
+    pointToLayer: function(feature, latlng) {
+        return L.marker(latlng, {
+            icon: customIcon
         });
+    }
+});
 
         // Ambil data GeoJSON dari URL atau sumber lainnya
         $.getJSON("{{route('api.points')}}", function (data) {
             point.addData(data);
+
+            // Tambahkan event click untuk menampilkan popup
+            point.on('click', function (e) {
+                var feature = e.layer.feature;
+                var popupContent = `
+                    <div class="text-center">
+                        <h5 class="fw-bold">${feature.properties.name}</h5>
+                        ${feature.properties.description ? `${feature.properties.description}` : ''}
+                        <p><img src="{{ asset('storage/images/') }}/${feature.properties.image}" class="img-fluid img-thumbnail mt-2" alt="Image" style="width: 200px;"> </p>
+                        <p class="mt-2 text-bs-tertiary-color"><b>${feature.properties.created_at}</b></p> <!-- Tambahkan waktu pembuatan laporan -->
+                        <div class="d-flex flex-row justify-content-end mt-2">
+                        </div>
+                    </div>
+                `;
+
+                e.layer.bindPopup(popupContent).openPopup();
+            });
+
             map.addLayer(point);
         });
+
+                // Ambil data GeoJSON dari URL atau sumber lainnya
+                $.getJSON("{{route('api.points')}}", function (data) {
+                    point.addData(data);
+                    map.addLayer(point);
+                });
 
 
     /* GeoJSON Polyline */

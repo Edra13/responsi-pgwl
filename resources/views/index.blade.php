@@ -160,7 +160,7 @@
     <script src="https://unpkg.com/terraformer@1.0.7/terraformer.js"></script>
     <script src="https://unpkg.com/terraformer-wkt-parser@1.1.2/terraformer-wkt-parser.js"></script>
     <script>
-    var map = L.map('map').setView([-8.567987, 116.096130], 14);
+    var map = L.map('map').setView([-8.587801, 116.110949], 14);
 
     // Basemap layers
     var stadiaMaps = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.{ext}', {
@@ -192,7 +192,7 @@ map.addLayer(drawnItems);
 var drawControl = new L.Control.Draw({
 	draw: {
 		position: 'topleft',
-		polyline: true,
+		polyline: false,
 		polygon: false,
 		rectangle: false,
 		circle: false,
@@ -255,59 +255,54 @@ map.on('draw:created', function(e) {
     /* GeoJSON Point */
 
     var customIcon = L.icon({
-            iconUrl: '{{ asset('storage/marker.png') }}', // Ganti dengan path ke ikon kustom Anda
-            iconSize: [40], // Ukuran ikon
-            iconAnchor: [16, 32], // Titik anchor (koordinat dalam ikon) untuk menentukan lokasi ikon di peta
-            popupAnchor: [0, -32] // Titik anchor untuk menentukan lokasi popup di atas ikon
+    iconUrl: 'storage/marker.png', // Ganti dengan path ke ikon kustom Anda
+    iconSize: [40], // Ukuran ikon [lebar, tinggi]
+    iconAnchor: [20, 40], // Titik anchor (koordinat dalam ikon) untuk menentukan lokasi ikon di peta
+    popupAnchor: [0, -40] // Titik anchor untuk menentukan lokasi popup di atas ikon
+});
+
+var point = L.geoJson(null, {
+    pointToLayer: function(feature, latlng) {
+        return L.marker(latlng, {
+            icon: customIcon
         });
+    }
+});
 
-        var point = L.geoJson(null, {
-            onEachFeature: function (feature, layer) {
-                var popupContent = `
-                    <div class="text-center">
-                        <h5 class="fw-bold">${feature.properties.name}</h5>
-                        ${feature.properties.description ? `${feature.properties.description}` : ''}
-                        <img src="{{ asset('storage/images/') }}/${feature.properties.image}" class="img-fluid img-thumbnail mt-2" alt="Image" style="width: 200px;">
-                        <p class="mt-2">${feature.properties.created_at}</p> <!-- Tambahkan waktu pembuatan laporan -->
-                        <div class="d-flex flex-row justify-content-end mt-2">
-                            <a href="{{url('edit-point')}}/${feature.properties.id}" class="btn btn-sm btn-warning me-2">
-                                <i class="fa-solid fa-edit"></i>
-                            </a>
-                            <form action="{{url('delete-point')}}/${feature.properties.id}" method="POST" class="d-inline">
-                                {{ csrf_field() }}
-                                {{ method_field('DELETE') }}
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('Hapus laporan ini?')">
-                                    <i class="fa-solid fa-trash-can"></i>
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                `;
+// Ambil data GeoJSON dari URL atau sumber lainnya
+$.getJSON("{{route('api.points')}}", function (data) {
+    point.addData(data);
 
-                // Mengganti (") menjadi (') dalam script bootstrap agar tidak error
-                // Perhatikan tanda petik
+    // Tambahkan event click untuk menampilkan popup
+    point.on('click', function (e) {
+        var feature = e.layer.feature;
+        var popupContent = `
+            <div class="text-center">
+                <h5 class="fw-bold">${feature.properties.name}</h5>
+                ${feature.properties.description ? `${feature.properties.description}` : ''}
+                <p><img src="{{ asset('storage/images/') }}/${feature.properties.image}" class="img-fluid img-thumbnail mt-1" alt="Image" style="width: 200px;"> </p>
+                <p class="mt-2 text-bs-tertiary-color"><b>${feature.properties.created_at}</b></p> <!-- Tambahkan waktu pembuatan laporan -->
+                <div class="d-flex flex-row justify-content-end mt-2">
+                    <a href="{{url('edit-point')}}/${feature.properties.id}" class="btn btn-sm btn-warning me-2">
+                        <i class="fa-solid fa-edit"></i>
+                    </a>
+                    <form action="{{url('delete-point')}}/${feature.properties.id}" method="POST" class="d-inline">
+                        {{ csrf_field() }}
+                        {{ method_field('DELETE') }}
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Hapus laporan ini?')">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        `;
 
-                layer.on({
-                    click: function (e) {
-                        layer.bindPopup(popupContent).openPopup();
-                    },
-                    mouseover: function (e) {
-                        layer.bindTooltip(feature.properties.name);
-                    },
-                });
-            },
-            pointToLayer: function(feature, latlng) {
-                return L.marker(latlng, {
-                    icon: customIcon
-                });
-            }
-        });
+        e.layer.bindPopup(popupContent).openPopup();
+    });
 
-        // Ambil data GeoJSON dari URL atau sumber lainnya
-        $.getJSON("{{route('api.points')}}", function (data) {
-            point.addData(data);
-            map.addLayer(point);
-        });
+    map.addLayer(point);
+});
+
 
 
     /* GeoJSON Polyline */

@@ -33,7 +33,12 @@
         <td>
             <img src="{{ asset('storage/images/'.$p->image) }}"  alt="" width="200">
         </td>
-        <td>{{ date_format ($p->created_at, 'D, d-m-Y, H:i:s')}}</td>
+        @if ($p->created_at)
+        <td>{{ date_format($p->created_at, 'D, d-m-Y, H:i:s') }}</td>
+        @else
+        <td>-</td> <!-- Tampilkan tanda strip atau pesan default jika created_at null -->
+        @endif
+        
     </tr>
     @endforeach
 </tbody>

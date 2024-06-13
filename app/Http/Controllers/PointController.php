@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Points;
+use Carbon\Carbon;
+
 
 class PointController extends Controller
 {
@@ -34,7 +36,7 @@ class PointController extends Controller
                     'name' => $p->name,
                     'description' => $p->description,
                     'image' => $p->image,
-                    'created_at' => $p->created_at,
+                    'created_at' => Carbon::parse($p->created_at)->translatedFormat('l, j F Y'),
                     'updated_at' => $p->updated_at
                 ]
             ];

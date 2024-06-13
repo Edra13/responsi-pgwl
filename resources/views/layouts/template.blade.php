@@ -62,19 +62,21 @@
           <a class="nav-link" href="{{ route('dashboard') }}"><i class="fa-solid fa-gauge"></i> Dashboard</a>
         </li>
 
-        @if (Auth::check())
-        <form method="POST" action="{{ route('logout') }}">
-        @csrf
-        <li class="nav-item">
-          <button class="nav-link text-danger" type="submit"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
-        </li>
-        </form>
-
+          @if (Auth::check())
+            <!-- Jika user sudah login -->
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <li class="nav-item">
+                    <button class="btn btn-danger" type="submit"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+                </li>
+            </form>
         @else
-        <li class="nav-item">
-          <a class="nav-link text-info" href="{{ route('login') }}"><i class="fa-solid fa-right-from-bracket"></i> Login</a>
-        </li>
-        @endif
+            <!-- Jika user belum login -->
+            <li class="nav-item">
+                <a class="btn btn-primary" href="{{ route('login') }}"><i class="fa-solid fa-right-from-bracket"></i> Login</a>
+            </li>
+      @endif
+
 
       </ul>
     </div>

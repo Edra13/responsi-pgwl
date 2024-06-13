@@ -168,7 +168,7 @@
                 <!-- Card Ringkasan Laporan -->
                 <div class="card shadow">
                     <div class="card-header bg-primary text-white">
-                        <h4 class="card-title text-center mt-2"><b>Ringkasan Laporan Tahun 2024</b></h4>
+                        <h5 class="card-title text-center mt-2"><b>Ringkasan Laporan Tahun 2024</b></h5>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -267,23 +267,23 @@
 
     <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-10 py-12"> <!-- Mengubah lebar kolom menjadi 10 -->
+        <div class="col-sm-10 py-12"> <!-- Mengubah lebar kolom menjadi 10 -->
             <div class="card mb-0">
                 <div class="card-body">
                     <h3 class="card-title text-danger mb-2 text-center font-weight-bold">NOMOR DARURAT</h3> <!-- Menambahkan font-weight-bold untuk membuat teks tebal -->
                     <p class="card-text text-dark text-center mb-3">Hubungi nomor darurat berikut dalam keadaan darurat:</p>
                     <div class="row justify-content-center"> <!-- Mengatur agar konten berada di tengah -->
-                        <div class="col-md-4 text-center "> <!-- Mengatur lebar kolom untuk konten -->
+                        <div class="col-sm-4 text-center "> <!-- Mengatur lebar kolom untuk konten -->
                             <a href="tel:110" class="btn btn-primary btn-number d-flex align-items-center justify-content-center" style="height: 100%;">
                                 <span>Polisi: 110</span>
                             </a>
                         </div>
-                        <div class="col-md-4 text-center"> <!-- Mengatur lebar kolom untuk konten -->
+                        <div class="col-sm-4 text-center"> <!-- Mengatur lebar kolom untuk konten -->
                             <a href="tel:113" class="btn btn-primary btn-number d-flex align-items-center justify-content-center" style="height: 100%;">
                                 <span>Pemadam Kebakaran: 113</span>
                             </a>
                         </div>
-                        <div class="col-md-4 text-center"> <!-- Mengatur lebar kolom untuk konten -->
+                        <div class="col-sm-4 text-center"> <!-- Mengatur lebar kolom untuk konten -->
                             <a href="tel:118" class="btn btn-primary btn-number d-flex align-items-center justify-content-center" style="height: 100%;">
                                 <span>Ambulans: 118 atau 119</span>
                             </a>

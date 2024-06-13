@@ -35,6 +35,12 @@ class UserSeeder extends Seeder
                 'email' => 'user@gmail.com',
                 'password' =>  bcrypt('98765'),
             ],
+            [
+                'name' => 'Edra',
+                'phone' => '08113900165',
+                'email' => 'edraelricadewi@mail.ugm.ac.id',
+                'password' =>  bcrypt('12345'),
+            ],
             ];
 
             // Insert the user into the database
