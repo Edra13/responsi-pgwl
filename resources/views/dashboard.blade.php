@@ -329,7 +329,7 @@
             <div class="col-md-6">
             <div class="row align-items-center"> <!-- Baris untuk gambar kotak dan teks -->
                 <div class="col-auto me-3"> <!-- Kolom untuk gambar kotak -->
-                    <img src="storage/Logo UGM.png" alt="" style="max-width: 70px;">
+                    <img src="storage/logo3.png" alt="" style="max-width: 150px;">
                 </div>
                 <div class="col"> <!-- Kolom untuk teks "Instansi" -->
                     <ul class="list-unstyled">

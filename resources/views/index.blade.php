@@ -253,19 +253,15 @@ map.on('draw:created', function(e) {
 
 
     /* GeoJSON Point */
-        var point = L.geoJson(null, {
-            pointToLayer: function (feature, latlng) {
-                // Buat ikon kustom untuk setiap marker
-                var customIcon = L.icon({
-                    iconUrl: 'storage/marker.png',
-                    iconSize: [50], // Sesuaikan ukuran ikon Anda
-                    iconAnchor: [16, 32], // Sesuaikan titik ancor ikon jika diperlukan
-                    popupAnchor: [0, -30] // Sesuaikan posisi pop up di atas ikon
-                });
 
-                // Tambahkan marker dengan ikon kustom ke peta
-                return L.marker(latlng, { icon: customIcon });
-            },
+    var customIcon = L.icon({
+            iconUrl: '{{ asset('storage/marker.png') }}', // Ganti dengan path ke ikon kustom Anda
+            iconSize: [40], // Ukuran ikon
+            iconAnchor: [16, 32], // Titik anchor (koordinat dalam ikon) untuk menentukan lokasi ikon di peta
+            popupAnchor: [0, -32] // Titik anchor untuk menentukan lokasi popup di atas ikon
+        });
+
+        var point = L.geoJson(null, {
             onEachFeature: function (feature, layer) {
                 var popupContent = `
                     <div class="text-center">
@@ -300,6 +296,11 @@ map.on('draw:created', function(e) {
                     },
                 });
             },
+            pointToLayer: function(feature, latlng) {
+                return L.marker(latlng, {
+                    icon: customIcon
+                });
+            }
         });
 
         // Ambil data GeoJSON dari URL atau sumber lainnya
