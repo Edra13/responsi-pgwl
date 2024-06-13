@@ -32,7 +32,7 @@ Merancang layout aplikasi yang responsif dan menarik. Dengan bantuan komponen-ko
 ![Tangkapan Layar 3](edt.png)
 *Tampilan Halaman Edit Peta*
 
-![Tangkapan Layar 4](storage/screenshot2.png)
+![Tangkapan Layar 4](fm.png)
 *Formulir Pelaporan Gangguan Lalu Lintas*
 
 ![Tangkapan Layar 5](tb.png)
