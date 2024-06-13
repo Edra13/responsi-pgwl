@@ -23,23 +23,23 @@ Merancang layout aplikasi yang responsif dan menarik. Dengan bantuan komponen-ko
 
 # Tangkapan Layar Komponen Penting
 
-![Tangkapan Layar 1](storage/screenshot1.png)
+![Tangkapan Layar 1](mp.png)
 *Tampilan Peta Publik*
 
-![Tangkapan Layar 2](storage/screenshot1.png)
+![Tangkapan Layar 2](ml.png)
 *Tampilan Peta Login*
 
-![Tangkapan Layar 3](storage/screenshot1.png)
+![Tangkapan Layar 3](edt.png)
 *Tampilan Halaman Edit Peta*
 
 ![Tangkapan Layar 4](storage/screenshot2.png)
 *Formulir Pelaporan Gangguan Lalu Lintas*
 
-![Tangkapan Layar 5](storage/screenshot3.png)
+![Tangkapan Layar 5](tb.png)
 *Tabel Laporan Gangguan Lalu Lintas*
 
-![Tangkapan Layar 5](storage/screenshot3.png)
-*Tabel Laporan Gangguan Lalu Lintas*
+![Tangkapan Layar 6](ds1.png)
+*Dashboard Mataram Traffic Aware*
 
-![Tangkapan Layar 5](storage/screenshot3.png)
-*Tabel Laporan Gangguan Lalu Lintas*
+![Tangkapan Layar 5](ds2.png)
+*Dashboard Mataram Traffic Aware*
